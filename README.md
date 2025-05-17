@@ -11,4 +11,7 @@ In this tutorial, we’ll build a clone of grep (`findw`), a command-line tool i
 
 ### References
 
+https://vt100.net/docs/vt100-ug/chapter3.html#ED
+https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+
 
