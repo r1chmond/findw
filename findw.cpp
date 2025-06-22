@@ -10,6 +10,14 @@ using std::ifstream;
 using std::string;
 using std::vector;
 
+struct CommandLine {
+  string pattern;
+  string path;
+
+  CommandLine(const string &patternIn, const string &pathIn)
+      : pattern(patternIn), path(pathIn) {}
+};
+
 int main(int argc, char *argv[]) {
   // guard to enforce parsing 2 arguments
   if (argc < 3) {
@@ -27,10 +35,10 @@ int main(int argc, char *argv[]) {
   }
   cout << "]\n";
 
+  CommandLine cli{argv[1], argv[2]};
+
   vector<string> fileContent{};
-  string pattern = argv[1];
-  string path = argv[2];
-  ifstream infile{path};
+  ifstream infile{cli.path};
   if (!infile) {
     cerr << "Error opening file!\n" << "EXIT 1\n";
     std::exit(EXIT_FAILURE);
@@ -47,13 +55,13 @@ int main(int argc, char *argv[]) {
 
   string found{};
   for (const auto &line : fileContent) {
-    size_t pos = line.find(pattern);
+    size_t pos = line.find(cli.pattern);
     if (pos != string::npos) {
       found += line + "\n";
     }
   }
   if (found.empty()) {
-    cout << "\"" + pattern + "\"" + " not found!\n";
+    cout << "\"" + cli.pattern + "\"" + " not found!\n";
   } else {
     cout << "\n";
     cout << "Found!\n";
