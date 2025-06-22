@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -29,13 +30,27 @@ bool contains(const string &content, const string &pattern) {
   return pos != string::npos;
 }
 
+/*
+ * Displays usage instructions to the user, indicating
+ * the expected command-line input format.
+ */
+void displayUsage() {
+  const int WIDTH = 15;
+  const int patternLength =
+      9; // size of "<pattern>". Help line-up the print out
+  string findw = "findw ";
+  cout << "USAGE:\n";
+  cout << std::setw(WIDTH - (patternLength - findw.size())) << findw
+       << "<pattern> <path> \n";
+}
+
 int main(int argc, char *argv[]) {
-  // guard to enforce parsing 2 arguments
+  // Validate that exactly 2 arguments are provided (excluding program name)
   if (argc < 3) {
-    cerr << "error: insufficient arguments.\n";
+    displayUsage();
     return 1;
   } else if (argc > 3) {
-    cerr << "error: Too many arguments.\n";
+    displayUsage();
     return 1;
   }
 
