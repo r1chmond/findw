@@ -44,12 +44,28 @@ void displayUsage() {
        << "<pattern> <path> \n";
 }
 
+/**
+ * Displays an error message indicating that required
+ * command-line arguments are missing, and shows
+ * the expected arguments.
+ */
+void insufficientArgsError() {
+  const int WIDTH = 15;
+  string pattern = "<pattern>";
+  string path = "<path>";
+  cerr << "error: The following required arguments were not provided:\n";
+  cerr << std::setw(WIDTH) << pattern << "\n";
+  cerr << std::setw(WIDTH - (pattern.size() - path.size())) << path << "\n";
+}
+
 int main(int argc, char *argv[]) {
   // Validate that exactly 2 arguments are provided (excluding program name)
   if (argc < 3) {
+    insufficientArgsError();
     displayUsage();
     return 1;
   } else if (argc > 3) {
+    cerr << "error: Too many arguments.\n";
     displayUsage();
     return 1;
   }
