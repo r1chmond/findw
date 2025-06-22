@@ -18,6 +18,17 @@ struct CommandLine {
       : pattern(patternIn), path(pathIn) {}
 };
 
+/*
+ * Checks if the given pattern exists within the content.
+ * @param content The text to search in.
+ * @param pattern The substring to search for.
+ * @return True if the pattern is found in the content, false otherwise.
+ */
+bool contains(const string &content, const string &pattern) {
+  size_t pos = content.find(pattern);
+  return pos != string::npos;
+}
+
 int main(int argc, char *argv[]) {
   // guard to enforce parsing 2 arguments
   if (argc < 3) {
@@ -55,8 +66,7 @@ int main(int argc, char *argv[]) {
 
   string found{};
   for (const auto &line : fileContent) {
-    size_t pos = line.find(cli.pattern);
-    if (pos != string::npos) {
+    if (contains(line, cli.pattern)) {
       found += line + "\n";
     }
   }
