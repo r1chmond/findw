@@ -58,6 +58,28 @@ void insufficientArgsError() {
   cerr << std::setw(WIDTH - (pattern.size() - path.size())) << path << "\n";
 }
 
+std::vector<string> readFile(const string &path) {
+  cout << "Reading file ...\n";
+  std::vector<string> fileContent{};
+  ifstream infile{path};
+  if (!infile) {
+    cerr << "Error opening file!\n" << "EXIT 1\n";
+    std::exit(EXIT_FAILURE);
+  }
+  string line{};
+  while (std::getline(infile, line)) {
+    fileContent.push_back(line);
+  }
+  if (infile.bad()) {
+    cerr << "I/O error while reading file!" << "\n";
+  } else if (!infile.eof()) {
+    cerr << "Unexpected error while reading file!" << "\n";
+  }
+  infile.close();
+  cout << "File has successfully been read! \n";
+  return fileContent;
+}
+
 int main(int argc, char *argv[]) {
   // Validate that exactly 2 arguments are provided (excluding program name)
   if (argc < 3) {
@@ -70,31 +92,10 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  cout << "argc: " << argc << "\n";
-  cout << "argv: [";
-  for (int i = 0; i < argc; ++i) {
-    cout << argv[i] << ", ";
-  }
-  cout << "]\n";
-
   CommandLine cli{argv[1], argv[2]};
 
   vector<string> fileContent{};
-  ifstream infile{cli.path};
-  if (!infile) {
-    cerr << "Error opening file!\n" << "EXIT 1\n";
-    std::exit(EXIT_FAILURE);
-  }
-  std::string line{};
-  while (std::getline(infile, line)) {
-    fileContent.push_back(line);
-  }
-  cout << "\n";
-  infile.close();
-  cout << "================================ \n";
-  cout << "File has successfully been read!";
-  cout << "\n";
-
+  fileContent = readFile(cli.path);
   string found{};
   for (const auto &line : fileContent) {
     if (contains(line, cli.pattern)) {
