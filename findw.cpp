@@ -5,19 +5,13 @@
 #include <string>
 #include <vector>
 
+#include "CommandLine.h"
+
 using std::cerr;
 using std::cout;
 using std::ifstream;
 using std::string;
 using std::vector;
-
-struct CommandLine {
-  string pattern;
-  string path;
-
-  CommandLine(const string &patternIn, const string &pathIn)
-      : pattern(patternIn), path(pathIn) {}
-};
 
 /*
  * Checks if the given pattern exists within the content.
@@ -70,6 +64,7 @@ std::vector<string> readFile(const string &path) {
   while (std::getline(infile, line)) {
     fileContent.push_back(line);
   }
+  // check stream state after reading
   if (infile.bad()) {
     cerr << "I/O error while reading file!" << "\n";
   } else if (!infile.eof()) {
