@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "CommandLine.h"
+#include "ProgressBar.h"
 
 using std::cerr;
 using std::cout;
@@ -91,12 +92,19 @@ int main(int argc, char *argv[]) {
 
   vector<string> fileContent{};
   fileContent = readFile(cli.path);
+
+  ProgressBar<vector<string>::iterator> progressBar(fileContent.begin(),
+                                                    fileContent.end());
+
   string found{};
   for (const auto &line : fileContent) {
+    ++progressBar;
+    progressBar.showProgress();
     if (contains(line, cli.pattern)) {
       found += line + "\n";
     }
   }
+
   if (found.empty()) {
     cout << "\"" + cli.pattern + "\"" + " not found!\n";
   } else {
