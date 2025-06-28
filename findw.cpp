@@ -98,7 +98,6 @@ int main(int argc, char *argv[]) {
 
   string found{};
   for (const auto &line : fileContent) {
-    ++progressBar;
     progressBar.showProgress();
     if (contains(line, cli.pattern)) {
       found += line + "\n";
@@ -106,10 +105,11 @@ int main(int argc, char *argv[]) {
   }
 
   if (found.empty()) {
-    cout << "\"" + cli.pattern + "\"" + " not found!\n";
+    string msg = "\"" + cli.pattern + "\"" + " not found!\n";
+    progressBar.finishMsg(msg);
   } else {
-    cout << "\n";
-    cout << "Found!\n";
+    string msg = "Found \"" + cli.pattern + "\"" + " in the following lines:";
+    progressBar.finishMsg(msg);
     cout << found << "\n";
   }
 
