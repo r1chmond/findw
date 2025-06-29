@@ -1,6 +1,6 @@
 # Command Line App in C++
 
-This simple app is tailored for beginners ready to get their hands dirty and start building, as well as intermediate to expert users looking for a quick read. For the full blog, refer to [link].
+This simple app is tailored for beginners ready to get their hands dirty and start building, as well as intermediate to expert users looking for a quick read. For the full blog, refer [here](https://answer-repo.com/blogposts/1).
 
 - [About](#about)
 - [References](#references)
