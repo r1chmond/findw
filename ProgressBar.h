@@ -32,10 +32,7 @@ private:
    * @param n number of times to repeat the character
    * @return string for the same charater of size n
    */
-  string repeat(char c, int n) {
-    string res(n, c);
-    return res;
-  }
+  string repeat(char c, int n) { return string(n, c); }
 
   size_t currentProgress(size_t prevProgressCount) {
     size_t result = progressCount * increment;
