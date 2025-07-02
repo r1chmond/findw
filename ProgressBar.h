@@ -23,8 +23,8 @@ private:
   std::pair<char, char> blockCharacters; // open and close charaters eg: []
   size_t vectorSize;
   double increment;
-  const size_t BAR_SIZE = 10;
-  const size_t MAX_PERCENTAGE = 100;
+  const size_t bar_size = 10;
+  const size_t max_percentage = 100;
 
   /*
    * Repeats a character n times
@@ -36,8 +36,8 @@ private:
 
   size_t currentProgress(size_t prevProgressCount) {
     size_t result = progressCount * increment;
-    if (result > MAX_PERCENTAGE || prevProgressCount == BAR_SIZE) {
-      return MAX_PERCENTAGE;
+    if (result > max_percentage || prevProgressCount == bar_size) {
+      return max_percentage;
     }
     return result;
   }
@@ -45,9 +45,9 @@ private:
   void delay() { std::this_thread::sleep_for(std::chrono::milliseconds(50)); }
 
   void barContent() {
-    size_t fillCount = (progressCount * BAR_SIZE) / vectorSize;
+    size_t fillCount = (progressCount * bar_size) / vectorSize;
     cout << CLEAR << currentProgress(fillCount) << "% " << blockCharacters.first
-         << repeat(loadStyle, fillCount) << repeat('_', BAR_SIZE - fillCount)
+         << repeat(loadStyle, fillCount) << repeat('_', bar_size - fillCount)
          << blockCharacters.second << std::flush;
   }
 
@@ -55,7 +55,7 @@ public:
   ProgressBar(Iterator begin, Iterator end)
       : begin(begin), end(end), progressCount(0), loadStyle('*'),
         blockCharacters({'[', ']'}), vectorSize(std::distance(begin, end)) {
-    increment = double(MAX_PERCENTAGE) / vectorSize;
+    increment = double(max_percentage) / vectorSize;
   }
 
   ProgressBar(Iterator begin, Iterator end, char loadStyleIn,
@@ -63,7 +63,7 @@ public:
       : begin(begin), end(end), progressCount(0), loadStyle(loadStyleIn),
         blockCharacters({lBlockCharacter, rBlockCharacter}),
         vectorSize(std::distance(begin, end)) {
-    increment = double(MAX_PERCENTAGE) / vectorSize;
+    increment = double(max_percentage) / vectorSize;
   }
 
   void setLoadStyle(char c) { loadStyle = c; }

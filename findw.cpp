@@ -30,12 +30,12 @@ bool contains(const string &content, const string &pattern) {
  * the expected command-line input format.
  */
 void displayUsage() {
-  const int WIDTH = 15;
+  const int width = 15;
   const int patternLength =
       9; // size of "<pattern>". Help line-up the print out
-  string findw = "findw ";
+  const string findw = "findw ";
   cout << "USAGE:\n";
-  cout << std::setw(WIDTH - (patternLength - findw.size())) << findw
+  cout << std::setw(width - (patternLength - findw.size())) << findw
        << "<pattern> <path> \n";
 }
 
@@ -45,12 +45,12 @@ void displayUsage() {
  * the expected arguments.
  */
 void insufficientArgsError() {
-  const int WIDTH = 15;
-  string pattern = "<pattern>";
-  string path = "<path>";
+  const int width = 15;
+  const string pattern = "<pattern>";
+  const string path = "<path>";
   cerr << "error: The following required arguments were not provided:\n";
-  cerr << std::setw(WIDTH) << pattern << "\n";
-  cerr << std::setw(WIDTH - (pattern.size() - path.size())) << path << "\n";
+  cerr << std::setw(width) << pattern << "\n";
+  cerr << std::setw(width - (pattern.size() - path.size())) << path << "\n";
 }
 
 std::vector<string> readFile(const string &path) {
@@ -105,10 +105,11 @@ int main(int argc, char *argv[]) {
   }
 
   if (found.empty()) {
-    string msg = "\"" + cli.pattern + "\"" + " not found!\n";
+    const string msg = "\"" + cli.pattern + "\"" + " not found!\n";
     progressBar.finishMsg(msg);
   } else {
-    string msg = "Found \"" + cli.pattern + "\"" + " in the following lines:";
+    const string msg =
+        "Found \"" + cli.pattern + "\"" + " in the following lines:";
     progressBar.finishMsg(msg);
     cout << found << "\n";
   }
